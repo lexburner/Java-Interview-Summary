@@ -1,5 +1,6 @@
-# Java-Interview-Summary
-[TOC]
+# Java 面试题汇总及解答
+
+让天下没有难拿的 Offer。欢迎在 Issue 中提出你遇到的或想得到解答的面试问题，或者你觉得某个某个问题有更好的解答，也欢迎 PR & Issue。
 
 ## 基础篇
 

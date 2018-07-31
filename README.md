@@ -75,16 +75,29 @@
 ### 线程
 
 - 创建线程的方式及实现
-- sleep() 、join（）、yield（）有什么区别
+
+只有一张创建线程的方式：new Thread()；Executors,ThreadPoolExecutor 等线程池做了线程的管理和复用，但最终依旧是通过 new Thread() 来创建线程；Runnable，Callable 创建的是任务，最终需要依托于线程去运行，和线程有本质的区别。
+
+- sleep() 、join() 、yield() 有什么区别
+
+sleep() 常用于让线程当前线程睡眠一段时间之后再执行。running -> blocked
+join() 常用于控制多个线程的执行次序,例如可以将两个交替执行的线程调度为顺序执行.比如在B线程中调用A线程的 join() 方法,直到A线程执行完毕,B线程才会继续执行.在B线程中表现为 running -> blocked
+yield() 不常用，作用于当前线程，手动控制当前线程让出线程调度器的时间片，但又可能刚刚让出，又立刻抢到时间片，继续执行。running -> runnable
+
 - 说说 CountDownLatch 原理
 - 说说 CyclicBarrier 原理
 - 说说 Semaphore 原理
 - 说说 Exchanger 原理
 - 说说 CountDownLatch 与 CyclicBarrier 区别
 - ThreadLocal 原理分析
+
+ThreadLocal 常用于维护线程私有化变量，解决线程安全问题。其内部维护了一个 ThreadLocalMap，使用 Thread 作为 key，ThreadLocal.set 的值作为 value。并且和 HashMap 使用链表+红黑树解决 Hash 冲突不同（拉链法），它使用线性探测法解决 Hash 冲突，并且 Entry 是软引用，方便不再使用时自动触发回收。
+
 - 讲讲线程池的实现原理
 - 线程池的几种方式
 - 线程的生命周期
+
+Thread 被创建后处于新建状态(New)，当线程调用了 start() 方法后，进入了就绪状态(Runnable)，但 CPU 不一定为其立刻分配时间片，等待真正分配时间片(这完全取决于 CPU 的行为，程序无法控制)，线程进入运行状态(Running)，处于运行状态的线程可能由于 CPU 的调度行为让出时间片，重新进入就绪状态(Runnable)，也有可能会由于 sleep，阻塞 IO，锁等行为的影响进入阻塞状态，此时他们依旧持有 CPU 的时间片，当运行状态结束，线程进入死亡状态(Dead)。
 
 ### 锁机制
 

@@ -39,7 +39,6 @@
    - int的初始化可以是 `int a = 1`,而 `Integer`的初始化可以是 `Integer a = 1` 或者 `Integer a = new Integer(1)`
    - Integer 缓存了 `-128~127` 范围数值在内部的一个数组内,该数值范围可以通过启动虚拟机参数 `-XX:AutoBoxCacheMax=` 进行设置大小
    并且在该范围内用==比较另外一个Integer的时候,实际上是int类型的比较,不过不推荐该方式,包装类型尽量使用`equals`来进行比较
-   
 
  - 重载和重写的区别
    - 重载 
